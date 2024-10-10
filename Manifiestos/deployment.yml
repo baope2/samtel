@@ -1,0 +1,24 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2  
+kind: Deployment
+metadata:
+  name: front-devops
+  namespace: front-qa
+spec:
+  selector:
+    matchLabels:
+      app: front-devops
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: front-devops
+    spec:
+      containers:
+      - name: front-devops
+        image: 005198794443.dkr.ecr.us-east-1.amazonaws.com/devsecops:front_devops_1
+        imagePullPolicy: Always
+        ports:
+        securityContext:
+          capabilities:
+            drop:
+            - NET_RAW
